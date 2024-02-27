@@ -2,38 +2,47 @@
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { Inter, Montserrat } from "next/font/google";
+import Image from "next/image";
 import React, { useEffect, useRef, useState } from "react";
 
 const inter = Inter({ subsets: ["latin"] });
 const montserrat = Montserrat({ subsets: ["latin"] });
 
+const detail_work = {
+  bigbuilder: {
+    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum",
+    image: [
+      "https://img.freepik.com/premium-vector/victory-business-achievement-triumph-award-winning-accomplishment-leadership-success-determination-career-success-concept-cheerful-businessman-winner-raising-flag-winning-trophy_212586-2040.jpg?w=996",
+      "https://img.freepik.com/premium-vector/victory-business-achievement-triumph-award-winning-accomplishment-leadership-success-determination-career-success-concept-cheerful-businessman-winner-raising-flag-winning-trophy_212586-2040.jpg?w=996",
+    ],
+  },
+};
 
-  // const dropIn = {
-  //   hidden: {
-  //     y: 50,
-  //     opacity: 0,
-  //     filter: "blur(15px)",
-  //   },
-  //   visible: {
-  //     filter: "blur(0px)",
-  //     x: "0",
-  //     y: 0,
-  //     opacity: 1,
-  //     transition: {
-  //       duration: 1,
-  //       delay: 1,
-  //     },
-  //   },
-  //   exit: {
-  //     x: "-100vw",
-  //     transition: { duration: 1 },
-  //     opacity: 0,
-  //   },
-  // };
+// const dropIn = {
+//   hidden: {
+//     y: 50,
+//     opacity: 0,
+//     filter: "blur(15px)",
+//   },
+//   visible: {
+//     filter: "blur(0px)",
+//     x: "0",
+//     y: 0,
+//     opacity: 1,
+//     transition: {
+//       duration: 1,
+//       delay: 1,
+//     },
+//   },
+//   exit: {
+//     x: "-100vw",
+//     transition: { duration: 1 },
+//     opacity: 0,
+//   },
+// };
 
 export default function Work() {
   const [modalOpen, setModalOpen] = useState(false);
-  const [slidingText, setSlidingText] = useState(false);
 
   const work_experience = [
     {
@@ -61,20 +70,21 @@ export default function Work() {
   const workRef = useRef();
   useGSAP(
     () => {
-      console.log("working work");
-      // if (modalOpen) {
       gsap.to(".work", { duration: 0, y: 50, filter: "blur(15px)" });
-      gsap.to(".work", { duration: 1, delay: 1, filter: "blur(0px)", y: 0 });
+      gsap.to(".work", { duration: 1, delay: 0.8, filter: "blur(0px)", y: 0 });
     },
     { scope: workRef, dependencies: [] }
   );
-
-
-  useEffect(() => {
-    if (!modalOpen && slidingText) {
-      setSlidingText(false);
-    }
-  }, [modalOpen]);
+  useGSAP(
+    () => {
+      if (modalOpen) {
+        gsap.to(".work", { filter: "blur(5px)", pointerEvents: "none" });
+      } else {
+        gsap.to(".work", { filter: "blur(0px)", pointerEvents: "auto" });
+      }
+    },
+    { scope: workRef, dependencies: [modalOpen] }
+  );
 
   return (
     <>
@@ -119,31 +129,63 @@ const DetailExperience = ({ onClickBack, modalOpen }) => {
   const detailExperienceRef = useRef();
   useGSAP(
     () => {
-      console.log(modalOpen, "mop");
       if (modalOpen) {
-        gsap.to(".box", { xPercent: -100 });
+        gsap.to(".wrapper", { yPercent: -100, y: 4 });
       } else {
-        gsap.to(".box", { xPercent: 100 });
+        gsap.to(".wrapper", { yPercent: 100 });
+      }
+      if (modalOpen) {
+        gsap.to(".work-detail-dim", {
+          pointerEvents: "auto",
+          backdropFilter: "blur(7px)",
+          backgroundColor: "rgba(209, 213, 219, 0.1)",
+        });
+      } else {
+        gsap.to(".work-detail-dim", {
+          backgroundColor: "rgba(209, 213, 219, 0)",
+          pointerEvents: "none",
+          backdropFilter: "blur(0px)",
+        });
       }
       // use selectors...
-
       // or refs...
       // gsap.to(circle.current, { rotation: "-=360" });
     },
     { scope: detailExperienceRef, dependencies: [modalOpen] }
-  ); // <-- scope for selector text
+  );
 
   return (
-    <div
-      ref={detailExperienceRef}
-      className="fixed top-0 left-full bg-black"
-      onClick={() => {
-        console.log("?");
-        onClickBack(modalOpen);
-      }}
-    >
-      {modalOpen}
-      <div className="box">AHSIOOOOOOOOOOawoujaoudas</div>
+    <div ref={detailExperienceRef}>
+      <div
+        className={"work-detail-dim"}
+        onClick={() => {
+          onClickBack(modalOpen);
+        }}
+      >
+        <div
+          className="work-detail"
+          onClick={() => {
+            onClickBack(modalOpen);
+          }}
+        >
+          <div className="wrapper">
+            <div className={"desc " + inter.className}>
+              <p className={montserrat.className}>Description</p>
+              {detail_work["bigbuilder"].desc}
+            </div>
+            <div className={"desc " + inter.className}>
+              <p className={montserrat.className}>Preview</p>
+              <div className="flex flex-col gap-4">
+                {detail_work["bigbuilder"].image.map((item, index) => (
+                  <div key={index}>
+                    <Image src={item} width={600} height={338} style={{ maxHeight: "338px" }} alt="prop image" />
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
