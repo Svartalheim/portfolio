@@ -1,17 +1,12 @@
 # Use a minimal Node.js image as the base
 FROM node:alpine AS build
 
-# Set working directory inside the container
+# Copy the rest of the application code
+COPY . ./app
 WORKDIR /app
-
-# Copy package.json and package-lock.json to the container
-COPY package*.json ./
 
 # Install dependencies
 RUN npm install
-
-# Copy the rest of the application code
-COPY . .
 
 # Build the application
 RUN npm run build
@@ -20,7 +15,7 @@ RUN npm run build
 FROM nginx:alpine
 
 # Copy built files from the previous stage to the nginx directory
-COPY --from=build /app/build /usr/share/nginx/html
+COPY --from=build /build /usr/share/nginx/html
 
 # Expose port 80
 EXPOSE 80
