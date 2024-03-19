@@ -1,9 +1,7 @@
 "use client";
-import Component from "@/lib/tes/tes";
-import { AnimatePresence } from "framer-motion";
 import { Montserrat } from "next/font/google";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import React from "react";
 const montserrat = Montserrat({ subsets: ["latin"] });
 
 export default function Contact() {

@@ -32,7 +32,7 @@ export default function About() {
       <div className="img">
         <Image
           src={
-            "https://i.pinimg.com/474x/59/23/16/592316324b2b141fec2a2f6758465172.jpg"
+            "/img/pfp.jpg"
           }
           width={500}
           height={500}
