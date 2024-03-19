@@ -18,29 +18,6 @@ const detail_work = {
   },
 };
 
-// const dropIn = {
-//   hidden: {
-//     y: 50,
-//     opacity: 0,
-//     filter: "blur(15px)",
-//   },
-//   visible: {
-//     filter: "blur(0px)",
-//     x: "0",
-//     y: 0,
-//     opacity: 1,
-//     transition: {
-//       duration: 1,
-//       delay: 1,
-//     },
-//   },
-//   exit: {
-//     x: "-100vw",
-//     transition: { duration: 1 },
-//     opacity: 0,
-//   },
-// };
-
 export default function Work() {
   const [modalOpen, setModalOpen] = useState(false);
 
@@ -90,26 +67,34 @@ export default function Work() {
     <>
       <div ref={workRef} className="w-full">
         <div className="work">
-          <div className="work-profile" onClick={() => setModalOpen(true)}>
+          <div className="work-profile" onClick={() => setModalOpen(false)}>
             <h1 className={"home-name " + montserrat.className}>Work</h1>
             <div className={"home-desc " + inter.className}>
               <p>
-                This is a showcase of my best work in a variety of fields including website development and application bot.
+                This is a showcase of my best work in a variety of fields
+                including website development and application bot.
               </p>
               <p>
-                The world of digital website development is constantly evolving. I’m still learning and gaining new skills
-                every day.
+                The world of digital website development is constantly evolving.
+                I’m still learning and gaining new skills every day.
               </p>
             </div>
           </div>
           <div className="work-menu">
             {work_experience.map((item, index) => (
-              <WorkItems item={item} key={index} onClick={() => setModalOpen(true)} />
+              <WorkItems
+                item={item}
+                key={index}
+                onClick={() => setModalOpen(true)}
+              />
             ))}
           </div>
         </div>
       </div>
-      <DetailExperience onClickBack={() => setModalOpen(false)} modalOpen={modalOpen} />
+      <DetailExperience
+        onClickBack={() => setModalOpen(false)}
+        modalOpen={modalOpen}
+      />
     </>
   );
 }
@@ -138,7 +123,7 @@ const DetailExperience = ({ onClickBack, modalOpen }) => {
         gsap.to(".work-detail-dim", {
           pointerEvents: "auto",
           backdropFilter: "blur(7px)",
-          backgroundColor: "rgba(209, 213, 219, 0.1)",
+          backgroundColor: "rgba(209, 213, 219, 0.25)",
         });
       } else {
         gsap.to(".work-detail-dim", {
@@ -147,9 +132,6 @@ const DetailExperience = ({ onClickBack, modalOpen }) => {
           backdropFilter: "blur(0px)",
         });
       }
-      // use selectors...
-      // or refs...
-      // gsap.to(circle.current, { rotation: "-=360" });
     },
     { scope: detailExperienceRef, dependencies: [modalOpen] }
   );
@@ -178,7 +160,13 @@ const DetailExperience = ({ onClickBack, modalOpen }) => {
               <div className="flex flex-col gap-4">
                 {detail_work["bigbuilder"].image.map((item, index) => (
                   <div key={index}>
-                    <Image src={item} width={600} height={338} style={{ maxHeight: "338px" }} alt="prop image" />
+                    <Image
+                      src={item}
+                      width={600}
+                      height={338}
+                      style={{ maxHeight: "338px" }}
+                      alt="prop image"
+                    />
                   </div>
                 ))}
               </div>

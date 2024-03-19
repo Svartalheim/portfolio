@@ -13,8 +13,8 @@ export default function Navbar() {
     {
       name: "home",
       url: "/",
-      icon: "home.svg",
-      desc: "",
+      icon: "",
+      desc: "Home",
     },
     {
       name: "discord",
@@ -66,7 +66,29 @@ const NavbarIcon = ({ item }) => {
   }, [pathname]);
   return (
     <>
-      {item.name !== "home" ? (
+      {item.name === "home" && pathname !== "/" ? (
+        <>
+          <Link
+            href={item.url}
+            className={"nav-item" + (isHovered ? " nav-item-hover" : "")}
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+          >
+            {item.icon && (
+              <Image
+                src={"/icon/" + item.icon}
+                width={20}
+                height={20}
+                alt={item.name}
+              />
+            )}
+            <p className={montserrat.className + " text-base"}>{item.desc}</p>
+          </Link>
+        </>
+      ) : (
+        <></>
+      )}
+      {item.name !== "home" && pathname === "/" ? (
         <button
           key={item.url}
           className={"nav-item" + (isHovered ? " nav-item-hover" : "")}
@@ -74,25 +96,38 @@ const NavbarIcon = ({ item }) => {
           onMouseLeave={() => setIsHovered(false)}
           onClick={() => openInNewTab(item.url)}
         >
-          <Image src={"/icon/" + item.icon} width={20} height={20} alt={item.name} />
+          <Image
+            src={"/icon/" + item.icon}
+            width={20}
+            height={20}
+            alt={item.name}
+          />
           <h1 className={"" + montserrat.className}>{item.desc}</h1>
         </button>
       ) : (
-        <>
-          {pathname === "/" ? (
-            <></>
-          ) : (
-            <Link
-              href={item.url}
-              className={"nav-item" + (isHovered ? " nav-item-hover" : "")}
-              onMouseEnter={() => setIsHovered(true)}
-              onMouseLeave={() => setIsHovered(false)}
-            >
-              <Image src={"/icon/" + item.icon} width={20} height={20} alt={item.name} />
-            </Link>
-          )}
-        </>
+        <></>
       )}
+      {/* {item.name !== "home" || pathname === "/" ? (
+        <>
+          <button
+            key={item.url}
+            className={"nav-item" + (isHovered ? " nav-item-hover" : "")}
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+            onClick={() => openInNewTab(item.url)}
+          >
+            <Image
+              src={"/icon/" + item.icon}
+              width={20}
+              height={20}
+              alt={item.name}
+            />
+            <h1 className={"" + montserrat.className}>{item.desc}</h1>
+          </button>
+        </>
+      ) : (
+        <></>
+      )} */}
     </>
   );
 };
