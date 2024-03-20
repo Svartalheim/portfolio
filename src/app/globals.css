@@ -164,19 +164,19 @@ body {
   /* End of Home Section */
   /* Work Section */
   .work {
-    @apply flex flex-col xl:flex-row h-[calc(100vh-67px)] xl:h-full xl:w-full justify-evenly px-8 xl:px-0 py-4 xl:py-0 gap-4;
+    @apply flex flex-col xl:flex-row h-[calc(100vh-75px)] xl:h-full xl:w-full justify-evenly px-8 xl:px-0 py-4 xl:py-0 gap-4;
   }
   .work-profile {
     @apply flex xl:flex-col justify-evenly xl:justify-center items-center xl:items-start gap-6;
   }
   .work-menu {
-    @apply flex h-2/3 flex-col my-auto items-center xl:items-start overflow-auto gap-8 xl:grow-[0.5]  py-4;
+    @apply flex h-2/3 flex-col my-auto items-center xl:gap-0 xl:items-start overflow-auto gap-8 xl:grow-[0.5]  py-4;
   }
   .work-item {
     @apply flex flex-col items-center xl:items-start;
   }
   .work-item h1 {
-    @apply text-black font-medium font-yipes text-5xl md:text-8xl xl:text-[6rem] leading-[1.2rem] hover:font-yipes-italic hover:text-gray-500 hover:translate-x-1 transition-all duration-300 ease-in-out cursor-pointer;
+    @apply text-black font-medium font-yipes text-5xl md:text-8xl xl:text-[6rem] xl:leading-[1.2rem] hover:font-yipes-italic hover:text-gray-500 hover:translate-x-1 transition-all duration-300 ease-in-out cursor-pointer;
   }
   .work-item .work-desc {
     @apply flex flex-row justify-start items-center gap-4 cursor-default;
@@ -218,7 +218,7 @@ body {
     @apply order-2
   }
   .about .icon-skills{
-    @apply order-1 xl:order-last w-[500px] xl:w-full grid grid-cols-4 items-center justify-items-center gap-2
+    @apply order-1 xl:order-last w-[500px] max-w-[100vw] xl:max-w-full xl:w-full grid grid-cols-4 items-center justify-items-center gap-2 xl:p-0 px-[10px];
   }
 
   .about .icon-skills svg {
