@@ -85,7 +85,7 @@ export default function Work() {
               <WorkItems
                 item={item}
                 key={index}
-                onClick={() => setModalOpen(true)}
+                onClick={() => setModalOpen(false)}
               />
             ))}
           </div>
@@ -137,43 +137,47 @@ const DetailExperience = ({ onClickBack, modalOpen }) => {
   );
 
   return (
-    <div ref={detailExperienceRef}>
-      <div
-        className={"work-detail-dim"}
-        onClick={() => {
-          onClickBack(modalOpen);
-        }}
-      >
-        <div
-          className="work-detail"
-          onClick={() => {
-            onClickBack(modalOpen);
-          }}
-        >
-          <div className="wrapper">
-            <div className={"desc " + inter.className}>
-              <p className={montserrat.className}>Description</p>
-              {detail_work["bigbuilder"].desc}
-            </div>
-            <div className={"desc " + inter.className}>
-              <p className={montserrat.className}>Preview</p>
-              <div className="flex flex-col gap-4">
-                {detail_work["bigbuilder"].image.map((item, index) => (
-                  <div key={index}>
-                    <Image
-                      src={item}
-                      width={600}
-                      height={338}
-                      style={{ maxHeight: "338px" }}
-                      alt="prop image"
-                    />
+    <>
+      {modalOpen && (
+        <div ref={detailExperienceRef}>
+          <div
+            className={"work-detail-dim"}
+            onClick={() => {
+              onClickBack(modalOpen);
+            }}
+          >
+            <div
+              className="work-detail"
+              onClick={() => {
+                onClickBack(modalOpen);
+              }}
+            >
+              <div className="wrapper">
+                <div className={"desc " + inter.className}>
+                  <p className={montserrat.className}>Description</p>
+                  {detail_work["bigbuilder"].desc}
+                </div>
+                <div className={"desc " + inter.className}>
+                  <p className={montserrat.className}>Preview</p>
+                  <div className="flex flex-col gap-4">
+                    {detail_work["bigbuilder"].image.map((item, index) => (
+                      <div key={index}>
+                        <Image
+                          src={item}
+                          width={600}
+                          height={338}
+                          style={{ maxHeight: "338px" }}
+                          alt="prop image"
+                        />
+                      </div>
+                    ))}
                   </div>
-                ))}
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </div>
+      )}
+    </>
   );
 };
